@@ -332,7 +332,8 @@ func main() {
 go run main.go を忘れずに...
 
 参考 : ) [axios を利用した API の使用](https://jp.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html)  
-参考 : ) [「Vue.js + Go言語 + Firebase 」で始める! Frontend & Backend API 両方で認証するセキュアなSPA開発ハンズオン!](https://qiita.com/po3rin/items/d3e016d01162e9d9de80)
+参考 : ) [「Vue.js + Go言語 + Firebase 」で始める! Frontend & Backend API 両方で認証するセキュアなSPA開発ハンズオン!](https://qiita.com/po3rin/items/d3e016d01162e9d9de80)  
+参考 : ) [gorilla/handlers](https://github.com/gorilla/handlers)
 
 ###### TypeScript
 
