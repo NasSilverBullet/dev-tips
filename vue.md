@@ -144,7 +144,7 @@ $ npm run serve
     ├── components           <-------------- 部品単位
     │   └── HelloWorld.vue
     ├── main.js
-    ├── router.js            <-------------- src/vues/hogeのルーティングを設定する
+    ├── router.js            <-------------- src/views/hogeのルーティングを設定する
     ├── store.js
     └── views                <-------------- 画面単位
         ├── About.vue        
@@ -160,7 +160,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: 'signin'
+      redirect: 'signin',
     },
   ]
 })
@@ -178,7 +178,7 @@ Vuexは```store.js```内で管理する
 ```javascript
 export default new Vuex.Store({
   state: {
-    isAdmin: true
+    isAdmin: true,
   },
 })
 ```
@@ -199,7 +199,7 @@ stateを変更できる唯一のメソッド
 const store = new Vuex.Store({
   // ...
   mutations: {
-    mutationType(state, payload ) { // payloadって名前じゃなくても配列でもオブジェクトでも良い
+    mutationType( state, payload ) { // payloadって名前じゃなくても配列でもオブジェクトでも良い
       state.count = payload;
     },
   },
@@ -219,10 +219,10 @@ export default new Vuex.Store({
   actions: {
     increment: ({ commit }) => {
       setTimeout(() => {
-        commit('increment')
-      }, 5000)
-    }
-  }
+        commit('increment');
+      }, 5000);
+    },
+  },
 })
 ```
 
@@ -258,7 +258,7 @@ export default {
   data () {
     return {
       info: null,
-    }
+    };
   },
   mounted () {
     axios
