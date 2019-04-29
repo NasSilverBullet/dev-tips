@@ -281,8 +281,58 @@ templateで使えるようになる
 </template>
 ```
 
+golang apiを呼び出す際  
+CORS エラーが出るのでサーバー側で設定をする必要がある
 
-参考 : ) [axios を利用した API の使用](https://jp.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html)
+CORS対策前(ここではgorillaを使用)
+```go
+package main
+
+import (
+    "log"
+    "net/http"
+    "github.com/gorilla/mux"
+)
+
+func public(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte("hello public!\n"))
+}
+
+func main() {
+    r := mux.NewRouter()
+    r.HandleFunc("/public", public)
+    log.Fatal(http.ListenAndServe(":8000", r))
+}
+```
+CORS対策後
+```go
+package main
+
+import (
+    "log"
+    "net/http"
+    "github.com/gorilla/mux"
+    "github.com/gorilla/handlers" // 追加!!
+)
+
+func public(w http.ResponseWriter, r *http.Request) {
+    w.Write([]byte("hello public!\n"))
+}
+
+func main() {
+    allowedOrigins := handlers.AllowedOrigins([]string{"http://localhost:8080"}) // 追加!!
+    allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"}) // 追加!!
+    allowedHeaders := handlers.AllowedHeaders([]string{"Authorization"}) // 追加!!
+    r := mux.NewRouter()
+    r.HandleFunc("/public", public)
+    log.Fatal(http.ListenAndServe(":8000", handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders)(r))) // 変更!!
+}
+```
+
+go run main.go を忘れずに...
+
+参考 : ) [axios を利用した API の使用](https://jp.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html)  
+参考 : ) [「Vue.js + Go言語 + Firebase 」で始める! Frontend & Backend API 両方で認証するセキュアなSPA開発ハンズオン!](https://qiita.com/po3rin/items/d3e016d01162e9d9de80)
 
 ###### TypeScript
 
