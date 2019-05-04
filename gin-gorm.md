@@ -21,8 +21,9 @@ func gormConnect() *gorm.DB {
   PASS := ""
   PROTOCOL := "tcp(0.0.0.0:3306)"
   DBNAME := "gin_gorm"
+  OPTION := "?parseTime=true"
 
-  CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+  CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + OPTION
   db, err := gorm.Open(DBMS, CONNECT)
 
   if err != nil {
@@ -84,10 +85,14 @@ db.Create(&user)
 
 
 // Read
-// から定義した構造体に代入してくれる
-db.FirstOrInit(&user1)
-// dbにあったら構造体に代入し、なかったら作って代入
-db.FirstOrCreate(&user1)
+db.First(&user1, 1) // IDで取得、Nameも取れる
+db.First(&user1, User{Name: "Yukihiro Taniguchi"}) // ID以外取得
+
+// ない場合に第一引数に第二引数の値を反映
+db.First(&user1, User{Name: "Yukihiro Taniguchi"})
+
+// ない場合に第一引数に第二引数の値を反映し、レコードを作成
+db.FirstOrCreate(User{Name: "Yukihiro Taniguchi"})
 
 
 // 単体 Update
@@ -113,4 +118,62 @@ db.Delete(&user1) // deleted_at カラムに日時が設定される
 
 ```
 
+
+### Relationships
+```go
+// Belong To
+
+// User ...
+type User struct {
+  gorm.Model
+  Profile   Profile `gorm:"foreignkey:ProfileID"`
+  ProfileID uint
+}
+
+// Profile ...
+type Profile struct {
+  gorm.Model
+  Name string
+}
+
+
+// main.go
+// test用レコードを作成
+profile := Profile{Name: "Yukihiro Taniguchi"}
+db.Create(&profile)
+users := make([]User, 10)
+for i := range users {
+  users[i].ProfileID = profile.ID
+  db.Create(&users[i])
+}
+
+
+// users[3] が参照しているprofileレコードを取得
+profile2 := Profile{}
+db.Model(&users[3]).Related(&profile2)
+fmt.Printf("profile2.Name : %s", profile2.Name)
+// profile2.Name : Yukihiro Taniguchi
+
+
+// profileを参照している全userレコードを取得
+users2 := make([]User, 10)
+db.Where(&User{ProfileID : profile.ID}).Find(&users2)
+for i := range users2 {
+  fmt.Printf("users2[%d].ID : %d\n", i, users2[i].ID)
+}
+/**
+users2[0].ID : 1
+users2[1].ID : 2
+users2[2].ID : 3
+users2[3].ID : 4
+users2[4].ID : 5
+users2[5].ID : 6
+users2[6].ID : 7
+users2[7].ID : 8
+users2[8].ID : 9
+users2[9].ID : 10
+**/
+```
+
 参考 : ) [GORM](http://doc.gorm.io/)
+参考 : ) [GORM の Association 関連で、任意の外部キー名を使用しようとしてハマったのでメモ。](http://egawata.hatenablog.com/entry/2017/01/08/073313)
