@@ -175,5 +175,76 @@ users2[9].ID : 10
 **/
 ```
 
-参考 : ) [GORM](http://doc.gorm.io/)
-参考 : ) [GORM の Association 関連で、任意の外部キー名を使用しようとしてハマったのでメモ。](http://egawata.hatenablog.com/entry/2017/01/08/073313)
+参考 : ) [GORM](http://doc.gorm.io/)  
+参考 : ) [GORM の Association 関連で、任意の外部キー名を使用しようとしてハマったのでメモ。](rttp://egawata.hatenablog.com/entry/2017/01/08/073313)
+
+### Docker × GORM
+
+#### docker-compose.yml
+```yaml
+version: '3'
+
+services:
+  # MySQL
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gin_gorm_docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+    - ./mysql/data:/var/lib/mysql
+    - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+    - 3306:3306
+
+  go:
+    image: golang:1.11
+    build: ./db
+    container_name: go_host
+    environment:
+      - GO111MODULE=on
+    volumes:
+      - ./db/:/db
+    ports:
+      - 8888:8888
+
+```
+
+#### db/main.go
+```go
+func gormConnect() *gorm.DB {
+  DBMS := "mysql"
+  USER := "docker"
+  PASS := "docker"
+  PROTOCOL := "tcp(db:3306)" // PROTOCOL := "tcp(0.0.0.0:3306)" だとだめ
+
+  DBNAME := "gin_gorm_docker"
+  OPTION := "?parseTime=true"
+
+  CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + OPTION
+  db, err := gorm.Open(DBMS, CONNECT)
+
+  if err != nil {
+    panic(err.Error())
+  }
+  return db
+}
+```
+
+#### mysql/my.cnf
+
+```cnf
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+```
+
+#### mysql/data (ディレクトリ)
+作成しておく(マウントするといろいろその中に作成される)
+
+
+参考 : ) [gin gormでデータベース接続](https://qiita.com/ogurasousui/items/c0324dbb8dfdb9e0ac1b)
