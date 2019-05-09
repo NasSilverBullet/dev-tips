@@ -7,7 +7,7 @@
 ```shell
 ~$ cd myapp
 ```
-To install Homestead directly into your project, require it using Composer:
+homestead のインストール
 ```shell
 ~/myapp$ composer require laravel/homestead --dev
 ```
@@ -24,7 +24,7 @@ Homestead Installed!
 ```
 
 ### IPの設定
-virtual machine で使用されている、ip を確認。
+VM で使用されている、IP を確認
 ```shell
 ~/myapp$ cat /etc/hosts
 ##
@@ -37,7 +37,7 @@ virtual machine で使用されている、ip を確認。
 192.168.10.10  hoge.test
 ~
 ```
-Homestead.yml の ip を他の virtual machine と被らないように変更。
+Homestead.yml の IP を他の VM と被らないように変更
 ```shell
 ~/myapp$ vim Homestead.yml
 ```
@@ -52,14 +52,14 @@ authorize: ~/.ssh/id_rsa.pub
 keys:
 ~
 ```
-hosts ファイルに、ホスト名と IP アドレスを追加
+hosts ファイルに、ホスト名と IP を追加
 ```shell
 ~/myapp$ sudo vim /etc/host
 ```
 ```:/etc/host
-+192.168.10.11   laravel-project.test
++192.168.10.11 myapp.test
 ```
-### DB接続 (SQL クライアントで接続)
+### DB設定 (SQL クライアントで接続)
 Over SSH
 - Host : 127.0.0.1:3306(Host)
 - User : homestead
@@ -67,15 +67,17 @@ Over SSH
 - Server : 192:168:10.11(Guest)
 - Port : 22(Guest)
 - User : vagrant
-- Password : vagrant
+- Password : vagrant (デフォルト)
 
-### Vagrant 内環境設定
+### Guest 内へ
 
 ```shell
 ~/myapp$ vagrant up
 
 ~/myapp$ vagrant ssh
-~
+```
+Guest 内
+```shell
 Thanks for using
  _                               _                 _
 | |                             | |               | |
@@ -90,7 +92,8 @@ Thanks for using
 
 ~/code$ php artisan key:generate
 ```
-
+### Hostへ
+```
 .env ファイルに、host 情報を追記
 ```shell
 ~/myapp$ vim .env
