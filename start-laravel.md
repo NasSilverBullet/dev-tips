@@ -1,4 +1,4 @@
-# homestead 環境設定
+# laravel-homestead 環境設定
 
 ## プロジェクトの新規作成
 
