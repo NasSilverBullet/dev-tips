@@ -5,28 +5,28 @@
 ### laravel application の作成
 ディレクトリを移動
 ```shell
-$ cd myapp
+~$ cd myapp
 ```
 To install Homestead directly into your project, require it using Composer:
 ```shell
-$ composer require laravel/homestead --dev
+~/myapp$ composer require laravel/homestead --dev
 ```
 Homestead.yml を作成する
 ```shell
-$ composer install
+~/myapp$ composer install
 Loading composer repositories with package information
 Installing dependencies (including require-dev) from lock file
 Package operations: 78 installs, 0 updates, 0 removals
 ~
 
-$ vendor/bin/homestead make
+~/myapp$ vendor/bin/homestead make
 Homestead Installed!
 ```
 
 ### IPの設定
 virtual machine で使用されている、ip を確認。
 ```shell
-$ cat /etc/hosts
+~/myapp$ cat /etc/hosts
 ##
 # Host Database
 #
@@ -39,7 +39,7 @@ $ cat /etc/hosts
 ```
 Homestead.yml の ip を他の virtual machine と被らないように変更。
 ```shell
-$ vim Homestead.yml
+~/myapp$ vim Homestead.yml
 ```
 
 ```yaml:Homestead.yml
@@ -54,7 +54,7 @@ keys:
 ```
 hosts ファイルに、ホスト名と IP アドレスを追加
 ```shell
-$ sudo vim /etc/host
+~/myapp$ sudo vim /etc/host
 ```
 ```:/etc/host
 +192.168.10.11   laravel-project.test
@@ -72,53 +72,52 @@ Over SSH
 ### Vagrant 内環境設定
 
 ```shell
+~/myapp$ vagrant up
 
-$ vagrant up
+~/myapp$ vagrant ssh
+~
+Thanks for using
+ _                               _                 _
+| |                             | |               | |
+| |__   ___  _ __ ___   ___  ___| |_ ___  __ _  __| |
+| '_ \ / _ \| '_ ` _ \ / _ \/ __| __/ _ \/ _` |/ _` |
+| | | | (_) | | | | | |  __/\__ \ ||  __/ (_| | (_| |
+|_| |_|\___/|_| |_| |_|\___||___/\__\___|\__,_|\__,_|
 
-$ vagrant ssh
+~$ cd code
 
---- in vagrant ---
+~/code$ cp .env.example .env
 
-$ cd code
-
-$ cp .env.example .env
-
-$ php artisan key:generate
+~/code$ php artisan key:generate
 ```
 
 .env ファイルに、host 情報を追記
 ```shell
-$ vim .env
+~/myapp$ vim .env
 ```
 ```.env
 -APP_URL=http://localhost
 +APP_URL=http://project.test
 ```
 
-### 参考
-https://readouble.com/laravel/5.5/ja/homestead.html
-https://qiita.com/7968/items/97dd634608f37892b18a
-https://qiita.com/7968/items/97dd634608f37892b18a
-https://ouchi-it.com/vagrantup-error/
-
 ---
 
 ## homestead が入ったプロジェクト をclone するとき
-### homestead の準備
+### laravel application のclone
 ```shell
-$ git clone https://github.com/hoge/huga.git
+~$ git clone https://github.com/hoge/huga.git
 
-$ cd huga
+~$ cd huga
 ```
 Homestead.yml を作成する
 ```shell
-$ composer install
+~/huga$ composer install
 Loading composer repositories with package information
 Installing dependencies (including require-dev) from lock file
 Package operations: 78 installs, 0 updates, 0 removals
 ~
 
-$ vendor/bin/homestead make
+~/huga$ vendor/bin/homestead make
 Homestead Installed!
 
 ```
