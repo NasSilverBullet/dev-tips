@@ -87,6 +87,9 @@ $ php artisan key:generate
 ```
 
 .env ファイルに、host 情報を追記
+```shell
+$ vim .env
+```
 ```.env
 -APP_URL=http://localhost
 +APP_URL=http://project.test
