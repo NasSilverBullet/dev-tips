@@ -94,6 +94,8 @@ Thanks for using
 +APP_URL=http://project.test
 ```
 
+これではじめてlocalhostにアクセスできるようになる
+
 ### DB設定 (SQL クライアントで接続)
 Over SSH
 - Host : 127.0.0.1:3306(Host)
@@ -126,3 +128,48 @@ Homestead Installed!
 
 ```
 以下「IPの設定」に続く
+
+---
+
+## CGI 環境を構築
+上記の設定が終了したあと...
+
+### Guest 内で
+
+
+```
+~/code$ sudo apt-get -y install fcgiwrap
+```
+
+```shell
+~/code$ sudo vim /etc/nginx/sites-available/homestead.test
+```
+
+```diff:/etc/nginx/sites-available/homestead.test
+
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+
+        fastcgi_intercept_errors off;
+        fastcgi_buffer_size 16k;
+        fastcgi_buffers 4 16k;
+        fastcgi_connect_timeout 300;
+        fastcgi_send_timeout 300;
+        fastcgi_read_timeout 300;
+    }
+
++    location ~ \.cgi$ {
++        fastcgi_pass unix:/var/run/fcgiwrap.socket;
++        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
++        include fastcgi_params;
++    }
+```
+
+```
+~/code$ sudo nginx -s reload
+```
