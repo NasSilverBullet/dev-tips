@@ -84,7 +84,6 @@ Thanks for using
 ~/code$ php artisan key:generate
 ```
 ### Hostへ
-```
 .env ファイルに、host 情報を追記
 ```shell
 ~/myapp$ vim .env
