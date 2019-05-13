@@ -39,7 +39,7 @@ VM で使用されている、IP を確認
 ```
 Homestead.yml の IP を他の VM と被らないように変更
 ```shell
-~/myapp$ vim Homestead.yml
+~/myapp$ vim Homestead.yaml
 ```
 
 ```yaml:Homestead.yml
@@ -54,7 +54,7 @@ keys:
 ```
 hosts ファイルに、ホスト名と IP を追加
 ```shell
-~/myapp$ sudo vim /etc/host
+~/myapp$ sudo vim /etc/hosts
 ```
 ```:/etc/host
 +192.168.10.11 myapp.test
