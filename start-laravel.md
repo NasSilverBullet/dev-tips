@@ -59,15 +59,6 @@ hosts ファイルに、ホスト名と IP を追加
 ```:/etc/host
 +192.168.10.11 myapp.test
 ```
-### DB設定 (SQL クライアントで接続)
-Over SSH
-- Host : 127.0.0.1:3306(Host)
-- User : homestead
-- Password : secret (デフォルト)
-- Server : 192:168:10.11(Guest)
-- Port : 22(Guest)
-- User : vagrant
-- Password : vagrant (デフォルト)
 
 ### Guest 内へ
 
@@ -102,6 +93,16 @@ Thanks for using
 -APP_URL=http://localhost
 +APP_URL=http://project.test
 ```
+
+### DB設定 (SQL クライアントで接続)
+Over SSH
+- Host : 127.0.0.1:3306(Host)
+- User : homestead
+- Password : secret (デフォルト)
+- Server : 192:168:10.11(Guest)
+- Port : 22(Guest)
+- User : vagrant
+- Password : vagrant (デフォルト)
 
 ---
 
