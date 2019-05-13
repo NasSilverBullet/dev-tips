@@ -11,7 +11,7 @@ homestead のインストール
 ```shell
 ~/myapp$ composer require laravel/homestead --dev
 ```
-Homestead.yml を作成する
+Homestead.yaml を作成する
 ```shell
 ~/myapp$ composer install
 Loading composer repositories with package information
@@ -37,12 +37,12 @@ VM で使用されている、IP を確認
 192.168.10.10  hoge.test
 ~
 ```
-Homestead.yml の IP を他の VM と被らないように変更
+Homestead.yaml の IP を他の VM と被らないように変更
 ```shell
 ~/myapp$ vim Homestead.yaml
 ```
 
-```yaml:Homestead.yml
+```diff:Homestead.yaml
 -ip: 192.168.10.10
 +ip: 192.168.10.11
 memory: 2048
@@ -56,7 +56,7 @@ hosts ファイルに、ホスト名と IP を追加
 ```shell
 ~/myapp$ sudo vim /etc/hosts
 ```
-```:/etc/host
+```diff:/etc/host
 +192.168.10.11 myapp.test
 ```
 
@@ -89,7 +89,7 @@ Thanks for using
 ```shell
 ~/myapp$ vim .env
 ```
-```.env
+```diff:.env
 -APP_URL=http://localhost
 +APP_URL=http://project.test
 ```
@@ -113,7 +113,7 @@ Over SSH
 
 ~$ cd huga
 ```
-Homestead.yml を作成する
+Homestead.yaml を作成する
 ```shell
 ~/huga$ composer install
 Loading composer repositories with package information
