@@ -7,3 +7,5 @@
 3. MySQL の基本Tips => mysql.md
 4. Gin Web Framework および GORM の基本Tips => gin-gorm.md
 5. laravel-homestead 環境設定 => start-laravel.md
+6. rails の Tips => rails-dev.md
+7. vue project 作成のためのTips => vue-start-project.md
