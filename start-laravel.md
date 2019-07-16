@@ -3,15 +3,21 @@
 ## プロジェクトの新規作成
 
 ### laravel application の作成
+
 ディレクトリを移動
+
 ```shell
 ~$ cd myapp
 ```
+
 homestead のインストール
+
 ```shell
 ~/myapp$ composer require laravel/homestead --dev
 ```
+
 Homestead.yaml を作成する
+
 ```shell
 ~/myapp$ composer install
 Loading composer repositories with package information
@@ -24,7 +30,9 @@ Homestead Installed!
 ```
 
 ### IPの設定
+
 VM で使用されている、IP を確認
+
 ```shell
 ~/myapp$ cat /etc/hosts
 ##
@@ -33,11 +41,13 @@ VM で使用されている、IP を確認
 # localhost is used to configure the loopback interface
 # when the system is booting.  Do not change this entry.
 ##
-127.0.0.1	localhost
+127.0.0.1  localhost
 192.168.10.10  hoge.test
 ~
 ```
+
 Homestead.yaml の IP を他の VM と被らないように変更
+
 ```shell
 ~/myapp$ vim Homestead.yaml
 ```
@@ -52,10 +62,13 @@ authorize: ~/.ssh/id_rsa.pub
 keys:
 ~
 ```
+
 hosts ファイルに、ホスト名と IP を追加
+
 ```shell
 ~/myapp$ sudo vim /etc/hosts
 ```
+
 ```diff:/etc/host
 +192.168.10.11 myapp.test
 ```
@@ -67,7 +80,9 @@ hosts ファイルに、ホスト名と IP を追加
 
 ~/myapp$ vagrant ssh
 ```
+
 Guest 内
+
 ```shell
 Thanks for using
  _                               _                 _
@@ -83,11 +98,15 @@ Thanks for using
 
 ~/code$ php artisan key:generate
 ```
+
 ### Hostへ
+
 .env ファイルに、host 情報を追記
+
 ```shell
 ~/myapp$ vim .env
 ```
+
 ```diff:.env
 -APP_URL=http://localhost
 +APP_URL=http://project.test
@@ -96,7 +115,9 @@ Thanks for using
 これではじめてlocalhostにアクセスできるようになる
 
 ### DB設定 (SQL クライアントで接続)
+
 Over SSH
+
 - Host : 127.0.0.1:3306(Host)
 - User : homestead
 - Password : secret (デフォルト)
@@ -108,13 +129,17 @@ Over SSH
 ---
 
 ## homestead が入ったプロジェクト をclone するとき
+
 ### laravel application のclone
+
 ```shell
 ~$ git clone https://github.com/hoge/huga.git
 
 ~$ cd huga
 ```
+
 Homestead.yaml を作成する
+
 ```shell
 ~/huga$ composer install
 Loading composer repositories with package information
@@ -126,17 +151,18 @@ Package operations: 78 installs, 0 updates, 0 removals
 Homestead Installed!
 
 ```
+
 以下「IPの設定」に続く
 
 ---
 
 ## CGI 環境を構築
+
 上記の設定が終了したあと...
 
 ### Guest 内で
 
-
-```
+```shell
 ~/code$ sudo apt-get -y install fcgiwrap
 ```
 
@@ -169,6 +195,6 @@ Homestead Installed!
 +    }
 ```
 
-```
+```shell
 ~/code$ sudo nginx -s reload
 ```

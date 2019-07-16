@@ -2,10 +2,10 @@
 
 ## Gin
 
-
 ## GORM
 
 ### インポート
+
 ```go
 import (
   "github.com/jinzhu/gorm"
@@ -14,6 +14,7 @@ import (
 ```
 
 ### DB接続 基本文
+
 ```go
 func gormConnect() *gorm.DB {
   DBMS := "mysql"
@@ -46,6 +47,7 @@ func main() {
 ```
 
 ### テーブル作成及び削除
+
 ```go
 // User ...
 type User struct {
@@ -63,6 +65,7 @@ db.DropTable(&User{}) // テーブル削除
 ```
 
 ### ※ gorm.Model の定義
+
 ```go
 type Model struct {
   ID        uint `gorm:"primary_key"`
@@ -73,6 +76,7 @@ type Model struct {
 ```
 
 ### レコード関連メソッド
+
 ```go
 
 // 単体 Create
@@ -118,8 +122,8 @@ db.Delete(&user1) // deleted_at カラムに日時が設定される
 
 ```
 
-
 ### Relationships
+
 ```go
 // Belong To
 
@@ -181,6 +185,7 @@ users2[9].ID : 10
 ### Docker × GORM
 
 #### docker-compose.yml
+
 ```yaml
 version: '3'
 
@@ -215,6 +220,7 @@ services:
 ```
 
 #### db/main.go
+
 ```go
 func gormConnect() *gorm.DB {
   DBMS := "mysql"
@@ -244,7 +250,7 @@ collation-server=utf8mb4_unicode_ci
 ```
 
 #### mysql/data (ディレクトリ)
-作成しておく(マウントするといろいろその中に作成される)
 
+作成しておく(マウントするといろいろその中に作成される)
 
 参考 : ) [gin gormでデータベース接続](https://qiita.com/ogurasousui/items/c0324dbb8dfdb9e0ac1b)

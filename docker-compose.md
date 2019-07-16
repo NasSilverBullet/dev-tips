@@ -1,15 +1,20 @@
 # Docker Compose でサーバーサイド、フロントエンド、データベースの処理を切り分けるTips
 
 ## Docker Compose
+
 - server side
 - front end
 - database
 - docker-compose
 
 ### server side
+
 ### front end
+
 ### database
+
 ### docker-compose
+
 docker-compose.yml をapplicationのルートディレクトリに配置
 
 ```yaml

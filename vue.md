@@ -1,19 +1,19 @@
 # Vue でアプリ開発するためのTips
 
 ## Vue
+
 - Create Vue application
 - Vuex
 - Router
 - axios
 - (TypeScript)
 
-
 ### Create Vue application
 
 shellでvue appを作成
 
 ```shell
-$ vue create app
+vue create app
 ```
 
 Manually select features を選択
@@ -114,8 +114,8 @@ Vue CLI v3.7.0
 サーバーを起動
 
 ```shell
-$ cd app
-$ npm run serve
+cd app
+npm run serve
 ```
 
 
@@ -124,9 +124,10 @@ $ npm run serve
 ### Router + Vuex
 
 ###### Router  
+
 下記さえ意識すれば、勝手に作られるファイルの書き方で理解できる
 
-```
+```shell
 .
 ├── README.md
 ├── babel.config.js
@@ -147,12 +148,13 @@ $ npm run serve
     ├── router.js            <-------------- src/views/hogeのルーティングを設定する
     ├── store.js
     └── views                <-------------- 画面単位
-        ├── About.vue        
+        ├── About.vue
         └── Home.vue
 ```
 
 src/router.js にて下記のように```path :'*'``` をしていておくと  
 登録の内URLにアクセスしたときにredirect してあげるURLを設定できる
+
 ```javascript
 Vue.use(Router)
 
@@ -167,8 +169,8 @@ export default new Router({
 ```
 
 ###### Vuex
-状態管理をするライブラリ
 
+状態管理をするライブラリ
 
 Vuexは```store.js```内で管理する
 
@@ -205,7 +207,9 @@ const store = new Vuex.Store({
   },
 })
 ```
+
 こう書く(commit)ことでコンポーネントで使える
+
 ```javascript
 this.$store.commit('mutationType', 3 ); // 3 は payloadに代入される
 ```
@@ -244,12 +248,14 @@ this.$store.dispatch('increment');
 ###### axios
 
 axiosのインストール(vueアプリのディレクトリ内で)
+
 ```shell
-$ npm install --save axios
+npm install --save axios
 ```
 
 使用したいコンポーネントでaxiosをインポートし、  
 axiosでapiレスポンスを受け取る
+
 ```javascript
 <script>
 import axios from 'axios';
@@ -285,6 +291,7 @@ golang apiを呼び出す際
 CORS エラーが出るのでサーバー側で設定をする必要がある
 
 CORS対策前(ここではgorillaを使用)
+
 ```go
 package main
 
@@ -304,7 +311,9 @@ func main() {
     log.Fatal(http.ListenAndServe(":8000", r))
 }
 ```
+
 CORS対策後
+
 ```go
 package main
 

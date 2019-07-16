@@ -3,22 +3,22 @@
 ## vue のプロジェクトを作成
 
 ```shell
-$ vue create client
+vue create client
 ```
 
 または
 
 ```shell
-$ mkdir client
-$ cd client
-$ vue create .
+mkdir client
+cd client
+vue create .
 ```
 
 
 ## Bootstrap の導入
 
 ```shell
-$ npm install vue bootstrap-vue bootstrap
+npm install vue bootstrap-vue bootstrap
 ```
 
 warning を解消
@@ -33,8 +33,7 @@ found 2 vulnerabilities (1 moderate, 1 high)
   run `npm audit fix` to fix them, or `npm audit` for details
 
 $ npm audit
-                       === npm audit security report ===                        
-                                                                                
+                       === npm audit security report ===
 # Run  npm install jquery@3.4.1  to resolve 2 vulnerabilities
 SEMVER WARNING: Recommended action is a potentially breaking change
 
@@ -60,17 +59,17 @@ new Vue({
   render: h => h(App),
 }).$mount('#app');
 ```
+
 [Bootstrap-Vue : Getting Started](https://bootstrap-vue.js.org/docs/)
 
-
-
 ## font-awesome の導入
-[](https://www.npmjs.com/package/@fortawesome/vue-fontawesome)
+
+[font-awesome](https://www.npmjs.com/package/@fortawesome/vue-fontawesome)
 
 ## axios の導入
 
 ```shell
-$ npm install axios
+npm install axios
 ```
 
 `src/components/Hello.vue`を修正
@@ -91,9 +90,10 @@ import axios from "axios";
     },
 ```
 
-
 ## github pages 用
+
 `vue.config.js`を追加
+
 ```vue.config.js
 module.exports = {
     outputDir: 'docs',
